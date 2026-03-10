@@ -21,7 +21,9 @@ import {
   Building2,
   ShieldCheck,
   Eye,
-  EyeOff
+  EyeOff,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SECTORS, Sector, SubSector, InspectionItem, Role } from './constants';
@@ -408,8 +410,37 @@ export default function App() {
     setView('DASHBOARD');
   };
 
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((e) => {
+        console.error(`Error attempting to enable fullscreen: ${e.message}`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   return (
-    <div className="font-sans antialiased text-neutral-900">
+    <div className="font-sans antialiased text-neutral-900 relative">
+      <button
+        onClick={toggleFullscreen}
+        className="fixed top-4 right-4 z-[100] p-3 bg-white/80 backdrop-blur-sm border border-neutral-200 rounded-full text-neutral-600 hover:text-black hover:bg-white shadow-sm transition-all active:scale-95"
+        title={isFullscreen ? "Sair da tela cheia" : "Tela cheia"}
+      >
+        {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+      </button>
       <AnimatePresence mode="wait">
         {view === 'LOGIN' && (
           <motion.div key="login" exit={{ opacity: 0 }} className="w-full">
