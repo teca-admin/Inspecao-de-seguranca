@@ -19,7 +19,9 @@ import {
   Save,
   ChevronDown,
   Building2,
-  ShieldCheck
+  ShieldCheck,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SECTORS, Sector, SubSector, InspectionItem, Role } from './constants';
@@ -29,6 +31,7 @@ import { SECTORS, Sector, SubSector, InspectionItem, Role } from './constants';
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,7 +44,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
+    <div className="h-[100dvh] w-full overflow-hidden bg-white flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-12">
           <div className="w-16 h-16 bg-black rounded-[15px] flex items-center justify-center mb-4 shadow-lg shadow-black/20">
@@ -71,12 +74,19 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
               <input 
-                type="password" 
+                type={showPassword ? "text" : "password"} 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white border border-neutral-200 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all font-medium"
+                className="w-full bg-white border border-neutral-200 rounded-xl py-4 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all font-medium"
                 placeholder="••••••••"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
             </div>
           </div>
 
