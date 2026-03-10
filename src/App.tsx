@@ -115,7 +115,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
 
 const Dashboard = ({ onSelectSector, onLogout }: { onSelectSector: (sector: Sector) => void, onLogout: () => void }) => {
   return (
-    <div className="h-screen bg-neutral-50 flex flex-col overflow-hidden">
+    <div className="h-[100dvh] w-full bg-neutral-50 flex flex-col overflow-hidden">
       <header className="bg-white border-b border-neutral-200 px-6 py-4 flex items-center justify-between z-10 shadow-sm shrink-0">
         <div>
           <h2 className="text-xl font-bold text-neutral-900 tracking-tight">Setores</h2>
@@ -169,7 +169,7 @@ const Dashboard = ({ onSelectSector, onLogout }: { onSelectSector: (sector: Sect
 
 const SubSectorSelection = ({ sector, onBack, onSelectSubSector }: { sector: Sector, onBack: () => void, onSelectSubSector: (sub: SubSector) => void }) => {
   return (
-    <div className="h-screen bg-neutral-50 flex flex-col overflow-hidden">
+    <div className="h-[100dvh] w-full bg-neutral-50 flex flex-col overflow-hidden">
       <header className="bg-white border-b border-neutral-200 px-6 py-4 flex items-center gap-4 z-10 shadow-sm shrink-0">
         <button onClick={onBack} className="p-2 hover:bg-neutral-100 rounded-full transition-colors">
           <ArrowLeft className="w-5 h-5" />
